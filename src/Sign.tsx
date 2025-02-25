@@ -1,4 +1,11 @@
-import {StyleSheet, Text, TouchableOpacity, View, Alert} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import {useData} from './DataContext';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
@@ -36,7 +43,8 @@ function Sign() {
     );
   }
   const sendData = () => {
-    if (currentOne.length < 16) {
+    setRequesting(true);
+    if (currentOne.length < 5) {
       Alert.alert('录制时间过短');
       return;
     }
@@ -55,8 +63,8 @@ function Sign() {
         matrix: matrix,
       })
       .then(res => {
-        console.log(res);
-        setResult(JSON.stringify(res.data));
+        setResult(res.data.result);
+        setRequesting(false);
       })
       .catch(err => {
         console.log(err);
@@ -74,7 +82,9 @@ function Sign() {
         <Text style={styles.buttonText}>{'发送请求'}</Text>
       </TouchableOpacity>
       <View style={{margin: 10, marginTop: 0}}>
-        {result ? (
+        {requesting ? (
+          <ActivityIndicator size="large" color="rgb(33, 150, 243)" />
+        ) : result ? (
           <Text>{result}</Text>
         ) : recording ? (
           <Text> 正在录制中...</Text>
