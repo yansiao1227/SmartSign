@@ -26,6 +26,7 @@ function Sign() {
   const [requesting, setRequesting] = useState(false);
   const [result, setResult] = useState('');
   const startRecord = () => {
+    setResult('');
     setFormatDataOne([]);
     setFormatDataTwo([]);
     setFormatDataThree([]);

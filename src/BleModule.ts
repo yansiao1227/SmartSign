@@ -1,7 +1,6 @@
 import {Platform, NativeModules, NativeEventEmitter} from 'react-native';
 import BleManager, {Peripheral, PeripheralInfo} from 'react-native-ble-manager';
 import {BleEventType, BleState} from './type';
-import {byteToString} from './utils';
 
 const bleManagerEmitter = new NativeEventEmitter(NativeModules.BleManager);
 
@@ -10,6 +9,7 @@ export default class BleModule {
   peripheralId: string;
   /** 蓝牙打开状态 */
   bleState: BleState;
+  peripheral: Peripheral | null;
 
   readServiceUUID!: any[];
   readCharacteristicUUID!: any[];
@@ -21,6 +21,7 @@ export default class BleModule {
   nofityCharacteristicUUID!: any[];
 
   constructor() {
+    this.peripheral = null;
     this.peripheralId = '';
     this.bleState = BleState.Off;
     this.initUUID();
@@ -211,6 +212,7 @@ export default class BleModule {
         .then(peripheralInfo => {
           // console.log('Connected peripheralInfo', peripheralInfo);
           this.peripheralId = peripheralInfo.id;
+          this.peripheral = peripheralInfo;
           this.getUUID(peripheralInfo);
           resolve(peripheralInfo);
         })

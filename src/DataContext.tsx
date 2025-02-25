@@ -2,6 +2,8 @@ import React, {createContext, useContext, useState} from 'react';
 
 // 创建一个Context
 const DataContext: any = createContext({
+  bleState: false,
+  setBleState: () => {},
   formatDataOne: [],
   setFormatDataOne: () => {},
   formatDataTwo: [],
@@ -15,10 +17,12 @@ export const DataProvider = ({children}: any) => {
   const [formatDataOne, setFormatDataOne] = useState([]);
   const [formatDataTwo, setFormatDataTwo] = useState([]);
   const [formatDataThree, setFormatDataThree] = useState([]);
-
+  const [bleState, setBleState] = useState(false);
   return (
     <DataContext.Provider
       value={{
+        bleState,
+        setBleState,
         formatDataOne,
         setFormatDataOne,
         formatDataTwo,

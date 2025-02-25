@@ -52,10 +52,24 @@ const Home: React.FC = ({navigation}: any) => {
 
   /** 使用Map类型保存搜索到的蓝牙设备，确保列表不显示重复的设备 */
   const deviceMap = useRef(new Map<string, Peripheral>());
-  const {setFormatDataOne, setFormatDataTwo, setFormatDataThree}: any =
-    useData();
+  const {
+    setFormatDataOne,
+    setFormatDataTwo,
+    setFormatDataThree,
+    setBleState,
+  }: any = useData();
   useEffect(() => {
-    bleModule.start();
+    bleModule.isPeripheralConnected().then(isConnected => {
+      if (isConnected && bleModule.peripheral) {
+        setBleState(true);
+        setIsMonitoring(true);
+        setIsConnected(true);
+        setData([bleModule.peripheral]);
+      } else {
+        setBleState(false);
+        bleModule.start();
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -215,17 +229,16 @@ const Home: React.FC = ({navigation}: any) => {
   /** 连接蓝牙 */
   function connect(item: Peripheral) {
     setConnectingId(item.id);
-
     if (scaning) {
       // 当前正在扫描中，连接时关闭扫描
       bleModule.stopScan().then(() => {
         setScaning(false);
       });
     }
-
     bleModule
       .connect(item.id)
       .then(peripheralInfo => {
+        setBleState(true);
         setIsConnected(true);
         // 连接成功后，列表只显示已连接的设备
         setData([item]);
@@ -244,6 +257,7 @@ const Home: React.FC = ({navigation}: any) => {
   function disconnect() {
     bleModule.disconnect();
     initData();
+    setBleState(false);
   }
 
   function notify(index: number) {
@@ -286,7 +300,7 @@ const Home: React.FC = ({navigation}: any) => {
   }
   const goNextPage = () => {
     // 蓝牙连接后跳转到下一页
-    navigation.navigate('NextPage');
+    navigation.navigate('Sign');
   };
 
   // function renderFooter() {
@@ -321,7 +335,7 @@ const Home: React.FC = ({navigation}: any) => {
         isMonitoring={isMonitoring}
         isConnected={isConnected}
         scaning={scaning}
-        disabled={scaning || !!connectingId}
+        disabled={scaning}
         onPress={isConnected ? disconnect : scan}
         goNextPage={goNextPage}
       />

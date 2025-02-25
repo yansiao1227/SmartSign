@@ -19,6 +19,8 @@ import com.swmansion.gesturehandler.RNGestureHandlerPackage;
 import com.th3rdwave.safeareacontext.SafeAreaContextPackage;
 // react-native-screens
 import com.swmansion.rnscreens.RNScreensPackage;
+// react-native-tts
+import net.no_mad.tts.TextToSpeechPackage;
 
 public class PackageList {
   private Application application;
@@ -67,7 +69,8 @@ public class PackageList {
       new BleManagerPackage(),
       new RNGestureHandlerPackage(),
       new SafeAreaContextPackage(),
-      new RNScreensPackage()
+      new RNScreensPackage(),
+      new TextToSpeechPackage()
     ));
   }
 }
