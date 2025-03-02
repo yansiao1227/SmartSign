@@ -14,17 +14,11 @@ import {
   BleManagerDidUpdateStateEvent,
   Peripheral,
 } from 'react-native-ble-manager';
-import BleModule from './BleModule';
-import BleProtocol from './BleProtocol';
 // import Characteristic from './components/Characteristic';
 import Header from './components/Header';
-import {BleEventType, BleState} from './type';
-import {useData} from './DataContext';
-
-// 注意: 需要确保全局只有一个实例，因为BleModule类保存着蓝牙的连接信息
-const bleModule = new BleModule();
-
-const bleProtocol = new BleProtocol();
+import {BleEventType, BleState} from './utils/type';
+import {useData} from './model/DataContext';
+import {useIsFocused} from '@react-navigation/native';
 
 const Home: React.FC = ({navigation}: any) => {
   // 蓝牙是否连接
@@ -57,9 +51,12 @@ const Home: React.FC = ({navigation}: any) => {
     setFormatDataTwo,
     setFormatDataThree,
     setBleState,
+    bleModule,
+    bleProtocol,
   }: any = useData();
+  const isFocused = useIsFocused();
   useEffect(() => {
-    bleModule.isPeripheralConnected().then(isConnected => {
+    bleModule.isPeripheralConnected().then((isConnected: any) => {
       if (isConnected && bleModule.peripheral) {
         setBleState(true);
         setIsMonitoring(true);
@@ -70,7 +67,7 @@ const Home: React.FC = ({navigation}: any) => {
         bleModule.start();
       }
     });
-  }, []);
+  }, [isFocused]);
 
   useEffect(() => {
     const updateStateListener = bleModule.addListener(
@@ -110,7 +107,7 @@ const Home: React.FC = ({navigation}: any) => {
 
   /** 蓝牙状态改变 */
   function handleUpdateState(event: BleManagerDidUpdateStateEvent) {
-    console.log('BleManagerDidUpdateState:', event);
+    // console.log('蓝牙状态改变:', event);
     bleModule.bleState = event.state;
     // 蓝牙打开时自动扫描
     if (event.state === BleState.On) {
@@ -120,7 +117,7 @@ const Home: React.FC = ({navigation}: any) => {
 
   /** 扫描结束监听 */
   function handleStopScan() {
-    console.log('Scanning is stopped');
+    // console.log('Scanning is stopped');
     setScaning(false);
   }
 
@@ -147,12 +144,12 @@ const Home: React.FC = ({navigation}: any) => {
 
   /** 蓝牙设备已连接 */
   function handleConnectPeripheral(data: Peripheral) {
-    console.log('BleManagerConnectPeripheral:', data);
+    console.log('蓝牙设备已连接:', data);
   }
 
   /** 蓝牙设备已断开连接 */
   function handleDisconnectPeripheral(data: Peripheral) {
-    console.log('BleManagerDisconnectPeripheral:', data);
+    console.log('蓝牙设备已断开连接:', data);
     initData();
   }
 
@@ -202,7 +199,7 @@ const Home: React.FC = ({navigation}: any) => {
       .then(() => {
         setScaning(true);
       })
-      .catch(err => {
+      .catch((err: any) => {
         setScaning(false);
       });
   }
@@ -237,7 +234,7 @@ const Home: React.FC = ({navigation}: any) => {
     }
     bleModule
       .connect(item.id)
-      .then(peripheralInfo => {
+      .then((peripheralInfo: any) => {
         setBleState(true);
         setIsConnected(true);
         // 连接成功后，列表只显示已连接的设备
@@ -245,7 +242,7 @@ const Home: React.FC = ({navigation}: any) => {
         // 链接后自动开启首个监听
         notify(0);
       })
-      .catch(err => {
+      .catch((err: any) => {
         alert('连接失败');
       })
       .finally(() => {
@@ -267,7 +264,7 @@ const Home: React.FC = ({navigation}: any) => {
         setIsMonitoring(true);
         console.log('通知监听开启成功');
       })
-      .catch(err => {
+      .catch((err: any) => {
         setIsMonitoring(false);
         console.log('通知监听开启失败');
       });

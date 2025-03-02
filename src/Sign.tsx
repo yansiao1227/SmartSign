@@ -6,7 +6,7 @@ import {
   Alert,
   ActivityIndicator,
 } from 'react-native';
-import {useData} from './DataContext';
+import {useData} from './model/DataContext';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 
@@ -25,6 +25,7 @@ function Sign() {
   const [recording, setRecording] = useState(false);
   const [requesting, setRequesting] = useState(false);
   const [result, setResult] = useState('');
+
   const startRecord = () => {
     setResult('');
     setFormatDataOne([]);

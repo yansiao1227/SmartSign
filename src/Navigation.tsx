@@ -6,13 +6,11 @@ import Sign from './Sign';
 import HomeScreen from './HomeScreen';
 import QuickStart from './QuickStart';
 import CustomHeaderButton from './components/CustomHeaderButton';
-import {useData} from './DataContext';
+import {useData} from './model/DataContext';
 const Stack = createStackNavigator();
+
 export default function Navigation() {
   const {bleState}: any = useData();
-  useEffect(() => {
-    console.log('Navigation.tsx', bleState);
-  }, [bleState]);
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">

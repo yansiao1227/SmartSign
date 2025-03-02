@@ -64,89 +64,100 @@
 40    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 40-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:31:5-85
 40-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:31:22-82
-41    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-41-->[com.facebook.flipper:flipper:0.125.0] C:\Users\26832\.gradle\caches\transforms-3\6e8943df9d97496367f9e5f995914484\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
-41-->[com.facebook.flipper:flipper:0.125.0] C:\Users\26832\.gradle\caches\transforms-3\6e8943df9d97496367f9e5f995914484\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
-42
-43    <uses-feature
-43-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-15:36
-44        android:name="android.hardware.bluetooth_le"
-44-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-53
-45        android:required="false" />
-45-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-33
-46
-47    <application
-47-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:33:5-52:19
-48        android:name="com.blemanagerdemo.MainApplication"
-48-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:34:7-38
-49        android:allowBackup="false"
-49-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:38:7-34
-50        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-50-->[androidx.core:core:1.7.0] C:\Users\26832\.gradle\caches\transforms-3\bf97ff9c137782af27b6e5942aaf7336\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
-51        android:debuggable="true"
-52        android:icon="@mipmap/ic_launcher"
-52-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:36:7-41
-53        android:label="@string/app_name"
-53-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:35:7-39
-54        android:roundIcon="@mipmap/ic_launcher_round"
-54-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:37:7-52
-55        android:theme="@style/AppTheme"
-55-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:39:7-38
-56        android:usesCleartextTraffic="true" >
-56-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:8:9-44
-57        <activity
-57-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:9-111
-58            android:name="com.facebook.react.devsupport.DevSettingsActivity"
-58-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:19-83
-59            android:exported="false" />
-59-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:84-108
-60        <activity
-60-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:40:7-51:18
-61            android:name="com.blemanagerdemo.MainActivity"
-61-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:41:9-37
-62            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
-62-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:43:9-118
-63            android:exported="true"
-63-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:46:9-32
-64            android:label="@string/app_name"
-64-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:42:9-41
-65            android:launchMode="singleTask"
-65-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:44:9-40
-66            android:windowSoftInputMode="adjustResize" >
-66-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:45:9-51
-67            <intent-filter>
-67-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:47:9-50:25
-68                <action android:name="android.intent.action.MAIN" />
-68-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:48:13-65
-68-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:48:21-62
-69
-70                <category android:name="android.intent.category.LAUNCHER" />
-70-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:49:13-73
-70-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:49:23-70
-71            </intent-filter>
-72        </activity>
-73
-74        <provider
-74-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
-75            android:name="androidx.startup.InitializationProvider"
-75-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
-76            android:authorities="com.blemanagerdemo.androidx-startup"
-76-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
-77            android:exported="false" >
-77-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
-78            <meta-data
-78-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
-79                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-79-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
-80                android:value="androidx.startup" />
-80-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
-81            <meta-data
-81-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
-82                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-82-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
-83                android:value="androidx.startup" />
-83-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
-84        </provider>
-85    </application>
-86
-87</manifest>
+41
+42    <queries>
+42-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:32:5-36:15
+43        <intent>
+43-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:33:7-35:16
+44            <action android:name="android.intent.action.TTS_SERVICE" />
+44-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:34:11-70
+44-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:34:19-67
+45        </intent>
+46    </queries>
+47
+48    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+48-->[com.facebook.flipper:flipper:0.125.0] C:\Users\26832\.gradle\caches\transforms-3\6e8943df9d97496367f9e5f995914484\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:5-76
+48-->[com.facebook.flipper:flipper:0.125.0] C:\Users\26832\.gradle\caches\transforms-3\6e8943df9d97496367f9e5f995914484\transformed\jetified-flipper-0.125.0\AndroidManifest.xml:16:22-73
+49
+50    <uses-feature
+50-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:13:5-15:36
+51        android:name="android.hardware.bluetooth_le"
+51-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:14:9-53
+52        android:required="false" />
+52-->[:react-native-ble-manager] D:\DHU\SmartSign\node_modules\react-native-ble-manager\android\build\intermediates\merged_manifest\debug\AndroidManifest.xml:15:9-33
+53
+54    <application
+54-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:37:5-56:19
+55        android:name="com.blemanagerdemo.MainApplication"
+55-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:38:7-38
+56        android:allowBackup="false"
+56-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:42:7-34
+57        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+57-->[androidx.core:core:1.7.0] C:\Users\26832\.gradle\caches\transforms-3\bf97ff9c137782af27b6e5942aaf7336\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
+58        android:debuggable="true"
+59        android:icon="@mipmap/ic_launcher"
+59-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:40:7-41
+60        android:label="@string/app_name"
+60-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:39:7-39
+61        android:roundIcon="@mipmap/ic_launcher_round"
+61-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:41:7-52
+62        android:theme="@style/AppTheme"
+62-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:43:7-38
+63        android:usesCleartextTraffic="true" >
+63-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:8:9-44
+64        <activity
+64-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:9-111
+65            android:name="com.facebook.react.devsupport.DevSettingsActivity"
+65-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:19-83
+66            android:exported="false" />
+66-->D:\DHU\SmartSign\android\app\src\debug\AndroidManifest.xml:11:84-108
+67        <activity
+67-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:44:7-55:18
+68            android:name="com.blemanagerdemo.MainActivity"
+68-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:45:9-37
+69            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode"
+69-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:47:9-118
+70            android:exported="true"
+70-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:50:9-32
+71            android:label="@string/app_name"
+71-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:46:9-41
+72            android:launchMode="singleTask"
+72-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:48:9-40
+73            android:windowSoftInputMode="adjustResize" >
+73-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:49:9-51
+74            <intent-filter>
+74-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:51:9-54:25
+75                <action android:name="android.intent.action.MAIN" />
+75-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:52:13-65
+75-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:52:21-62
+76
+77                <category android:name="android.intent.category.LAUNCHER" />
+77-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:53:13-73
+77-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:53:23-70
+78            </intent-filter>
+79        </activity>
+80
+81        <provider
+81-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:26:9-34:20
+82            android:name="androidx.startup.InitializationProvider"
+82-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:27:13-67
+83            android:authorities="com.blemanagerdemo.androidx-startup"
+83-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:28:13-68
+84            android:exported="false" >
+84-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:29:13-37
+85            <meta-data
+85-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:31:13-33:52
+86                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+86-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:32:17-75
+87                android:value="androidx.startup" />
+87-->[androidx.emoji2:emoji2:1.0.0] C:\Users\26832\.gradle\caches\transforms-3\3873511b740fa2055c56b7b70f2cdd1a\transformed\jetified-emoji2-1.0.0\AndroidManifest.xml:33:17-49
+88            <meta-data
+88-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:31:13-33:52
+89                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+89-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:32:17-78
+90                android:value="androidx.startup" />
+90-->[androidx.lifecycle:lifecycle-process:2.4.0] C:\Users\26832\.gradle\caches\transforms-3\cff5bd0519eb948d171eb5d4fa7ede12\transformed\jetified-lifecycle-process-2.4.0\AndroidManifest.xml:33:17-49
+91        </provider>
+92    </application>
+93
+94</manifest>

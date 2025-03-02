@@ -1,20 +1,111 @@
 // HomeScreen.tsx
 
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ActivityIndicator,
+} from 'react-native';
 import TypewriterText from './components/Typerwriter';
 import ImageFade from './components/ImageFade';
+import {useData} from './model/DataContext';
+import axios from 'axios';
+import Tts from 'react-native-tts';
+
+import {
+  StackActions,
+  useIsFocused,
+  CommonActions,
+} from '@react-navigation/native';
 
 const QuickStart: React.FC<any> = ({navigation}) => {
   let [recording, setRecording] = useState(false);
   const [startAnimation, setStartAnimation] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const {formatDataOne, formatDataTwo, formatDataThree}: any = useData();
+  const [result, setResult] = useState('');
+  Tts.setDefaultLanguage('zh-CN');
+  const {bleModule, setBleState}: any = useData();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    bleModule.isPeripheralConnected().then((isConnected: any) => {
+      if (isConnected && bleModule.peripheral) {
+        setBleState(true);
+      } else {
+        setBleState(false);
+        setRecording(false);
+        setIsLoading(false);
+        setResult('');
+        bleModule.start();
+        navigation.dispatch(
+          CommonActions.reset({
+            index: 0,
+            routes: [
+              {name: 'Home'}, // 假设 'Home' 是你的初始页面
+            ],
+          }),
+        );
+        Alert.alert('蓝牙已断开');
+      }
+    });
+  }, [isFocused]);
 
+  function transposeMatrix(matrix: any) {
+    return matrix[0].map((_: any, colIndex: any) =>
+      matrix.map((row: any) => row[colIndex]),
+    );
+  }
+  useEffect(() => {
+    if (result !== '') {
+      setTimeout(() => {
+        Tts.speak(result);
+      }, 100);
+    }
+  }, [result]);
+  const sendData = () => {
+    setIsLoading(true);
+    if (formatDataOne.length < 3) {
+      Alert.alert('录制时间过短');
+      setIsLoading(false);
+      setResult('');
+      return;
+    }
+    const tempDt = [
+      formatDataOne,
+      formatDataTwo,
+      formatDataThree,
+      Array.from({length: formatDataOne.length}, () => '0'),
+      Array.from({length: formatDataOne.length}, () => '0'),
+    ];
+    const matrix = transposeMatrix(tempDt);
+    // 接口
+    axios
+      .post('http://211.159.224.160:8000/predict/', {
+        matrix: matrix,
+      })
+      .then(res => {
+        console.log(res.data);
+        setResult(res.data.result);
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.log(err);
+        Alert.alert('网络错误');
+        setIsLoading(false);
+        setResult('');
+      });
+  };
   const handlePress = () => {
+    setResult('');
     setRecording(true);
   };
   const handlePressOver = () => {
-    navigation.replace('Records');
     setRecording(false);
+    sendData();
   };
   useEffect(() => {
     setStartAnimation(true);
@@ -29,58 +120,74 @@ const QuickStart: React.FC<any> = ({navigation}) => {
         paddingTop: 50,
         backgroundColor: '#fff',
       }}>
-      {recording ? (
-        <View style={{paddingTop: -20}}>
-          <ImageFade
-            // ref="ImageFade"
-            duration={200}
-            delay={1000}
+      {result === '' ? (
+        recording ? (
+          <View>
+            <Text style={{fontSize: 28, paddingTop: 120, color: '#000'}}>
+              正在录制中……
+            </Text>
+          </View>
+        ) : isLoading ? (
+          <View
             style={{
-              width: 200,
-              height: 252,
-            }}
-            startAnimation={startAnimation}>
-            <Image
-              style={{
-                width: 200,
-                height: 252,
-              }}
-              source={require('./assets/5.png')}
-            />
-            <Image
-              style={{
-                width: 200,
-                height: 252,
-              }}
-              source={require('./assets/1.png')}
-            />
-          </ImageFade>
-        </View>
+              display: 'flex',
+              paddingTop: 120,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <ActivityIndicator size="large" color="rgb(33, 150, 243)" />
+          </View>
+        ) : (
+          <View style={{paddingTop: 0}}>
+            <Text style={{fontSize: 48, paddingBottom: 50, color: '#000'}}>
+              你好,
+            </Text>
+            <Text style={{fontSize: 32, color: '#000'}}>
+              点击下方按钮,{'\n'}开始识别手势动作。
+            </Text>
+          </View>
+        )
       ) : (
-        <View style={{paddingTop: 100}}>
-          <Text style={{fontSize: 48, paddingBottom: 50, color: '#000'}}>
-            你好,
-          </Text>
-          <Text style={{fontSize: 32, color: '#000'}}>
-            点击下方按钮,{'\n'}开始识别手势动作。
-          </Text>
+        <View>
+          <View style={{paddingTop: -20}}>
+            <ImageFade
+              // ref="ImageFade"
+              duration={200}
+              delay={1000}
+              style={{
+                width: 200,
+                height: 252,
+              }}
+              startAnimation={startAnimation}>
+              <Image
+                style={{
+                  width: 200,
+                  height: 252,
+                }}
+                source={require('./assets/5.png')}
+              />
+              <Image
+                style={{
+                  width: 200,
+                  height: 252,
+                }}
+                source={require('./assets/1.png')}
+              />
+            </ImageFade>
+          </View>
+          <View style={styles.textContainer}>
+            <TypewriterText text={result} />
+          </View>
         </View>
       )}
-
-      {recording && (
-        <View style={styles.textContainer}>
-          <TypewriterText text="手势智通" interval={30} />
-        </View>
-      )}
-
       <View style={styles.container}>
         <View style={styles.circleBorder}>
           {recording ? (
-            <TouchableOpacity onPress={handlePressOver}>
+            <TouchableOpacity onPress={handlePressOver} disabled={isLoading}>
               <View style={styles.square} />
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={handlePress}>
+            <TouchableOpacity onPress={handlePress} disabled={isLoading}>
               <View style={styles.circle} />
             </TouchableOpacity>
           )}
@@ -99,15 +206,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   textContainer: {
-    color: '#000',
-    position: 'absolute',
-    bottom: 50,
-    width: '100%',
-    height: 300,
-    flex: 1,
+    // color: '#000',
+    // position: 'absolute',
+    // bottom: 50,
+    // width: '100%',
+    // height: 300,
+    // flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F7F7F7',
+    // backgroundColor: '#F7F7F7',
   },
   container: {
     position: 'absolute',

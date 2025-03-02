@@ -2,8 +2,22 @@
 
 import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
+import {useData} from './model/DataContext';
+import {useIsFocused} from '@react-navigation/native';
 
 const Home: React.FC<any> = ({navigation}) => {
+  const {bleModule, setBleState}: any = useData();
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    bleModule.isPeripheralConnected().then((isConnected: any) => {
+      if (isConnected && bleModule.peripheral) {
+        setBleState(true);
+      } else {
+        setBleState(false);
+        bleModule.start();
+      }
+    });
+  }, [isFocused]);
   return (
     <View
       style={{
@@ -67,7 +81,7 @@ const Home: React.FC<any> = ({navigation}) => {
           />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity
+      {/* <TouchableOpacity
         onPress={() => navigation.navigate('VoiceScreen')}
         style={{marginTop: 20}}>
         <Text style={{fontSize: 20}}>测试语音</Text>
@@ -76,7 +90,7 @@ const Home: React.FC<any> = ({navigation}) => {
         onPress={() => navigation.navigate('BlueToothScreen')}
         style={{marginTop: 10}}>
         <Text style={{fontSize: 20}}>测试蓝牙</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
