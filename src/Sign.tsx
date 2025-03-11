@@ -1,76 +1,47 @@
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Alert,
-  ActivityIndicator,
-} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useData} from './model/DataContext';
-import {useEffect, useState} from 'react';
-import axios from 'axios';
+import {useState} from 'react';
+import {ScrollView} from 'react-native-gesture-handler';
 
 function Sign() {
-  const {
-    formatDataOne,
-    setFormatDataOne,
-    formatDataTwo,
-    setFormatDataTwo,
-    formatDataThree,
-    setFormatDataThree,
-  }: any = useData();
+  const {bledata}: any = useData();
   const [currentOne, setCurrentOne] = useState([]);
   const [currentTwo, setCurrentTwo] = useState([]);
   const [currentThree, setCurrentThree] = useState([]);
+  const [currentFour, setCurrentFour] = useState([]);
+  const [currentFive, setCurrentFive] = useState([]);
+  const [currentSix, setCurrentSix] = useState([]);
+
   const [recording, setRecording] = useState(false);
-  const [requesting, setRequesting] = useState(false);
-  const [result, setResult] = useState('');
 
   const startRecord = () => {
-    setResult('');
-    setFormatDataOne([]);
-    setFormatDataTwo([]);
-    setFormatDataThree([]);
+    bledata.current = {
+      one: [],
+      two: [],
+      three: [],
+      four: [],
+      five: [],
+      six: [],
+    };
+    setCurrentOne([]);
+    setCurrentTwo([]);
+    setCurrentThree([]);
+    setCurrentFour([]);
+    setCurrentFive([]);
+    setCurrentSix([]);
     setRecording(true);
   };
   const stopRecord = () => {
-    setCurrentOne(formatDataOne);
-    setCurrentTwo(formatDataTwo);
-    setCurrentThree(formatDataThree);
-    setRecording(false);
-  };
-  function transposeMatrix(matrix: any) {
-    return matrix[0].map((_: any, colIndex: any) =>
-      matrix.map((row: any) => row[colIndex]),
-    );
-  }
-  const sendData = () => {
-    setRequesting(true);
-    if (currentOne.length < 5) {
-      Alert.alert('录制时间过短');
-      return;
+    setCurrentOne(bledata.current.one);
+    setCurrentTwo(bledata.current.two);
+    setCurrentThree(bledata.current.three);
+    if (bledata.current.four && bledata.current.five && bledata.current.six) {
+      setCurrentFour(bledata.current.four);
+      setCurrentFive(bledata.current.five);
+      setCurrentSix(bledata.current.six);
     }
 
-    const tempDt = [
-      currentOne,
-      currentTwo,
-      currentThree,
-      Array.from({length: currentOne.length}, () => '0'),
-      Array.from({length: currentOne.length}, () => '0'),
-    ];
-    const matrix = transposeMatrix(tempDt);
-    // 接口
-    axios
-      .post('http://211.159.224.160:8000/predict/', {
-        matrix: matrix,
-      })
-      .then(res => {
-        setResult(res.data.result);
-        setRequesting(false);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    setRecording(false);
   };
 
   return (
@@ -80,22 +51,30 @@ function Sign() {
         onPress={recording ? stopRecord : startRecord}>
         <Text style={styles.buttonText}>{recording ? '停止' : '开始'}录制</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.buttonStyle]} onPress={sendData}>
-        <Text style={styles.buttonText}>{'发送请求'}</Text>
-      </TouchableOpacity>
       <View style={{margin: 10, marginTop: 0}}>
-        {requesting ? (
-          <ActivityIndicator size="large" color="rgb(33, 150, 243)" />
-        ) : result ? (
-          <Text>{result}</Text>
-        ) : recording ? (
-          <Text> 正在录制中...</Text>
+        {recording ? (
+          <Text style={[styles.text]}> 正在录制中...</Text>
         ) : (
-          <View>
-            <Text>通道1: {JSON.stringify(currentOne)}</Text>
-            <Text>通道2: {JSON.stringify(currentTwo)}</Text>
-            <Text>通道3: {JSON.stringify(currentThree)}</Text>
-          </View>
+          <ScrollView style={{marginTop: 10, maxHeight: 1000}}>
+            <Text style={[styles.text]}>
+              通道1: {JSON.stringify(currentOne)}
+            </Text>
+            <Text style={[styles.text]}>
+              通道2: {JSON.stringify(currentTwo)}
+            </Text>
+            <Text style={[styles.text]}>
+              通道3: {JSON.stringify(currentThree)}
+            </Text>
+            <Text style={[styles.text]}>
+              通道4: {JSON.stringify(currentFour)}
+            </Text>
+            <Text style={[styles.text]}>
+              通道5: {JSON.stringify(currentFive)}
+            </Text>
+            <Text style={[styles.text]}>
+              通道6: {JSON.stringify(currentSix)}
+            </Text>
+          </ScrollView>
         )}
       </View>
     </View>
@@ -115,6 +94,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: 'white',
     fontSize: 12,
+  },
+  text: {
+    color: 'black',
   },
 });
 export default Sign;

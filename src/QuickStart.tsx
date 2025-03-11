@@ -16,20 +16,15 @@ import {useData} from './model/DataContext';
 import axios from 'axios';
 import Tts from 'react-native-tts';
 
-import {
-  StackActions,
-  useIsFocused,
-  CommonActions,
-} from '@react-navigation/native';
+import {useIsFocused, CommonActions} from '@react-navigation/native';
 
 const QuickStart: React.FC<any> = ({navigation}) => {
   let [recording, setRecording] = useState(false);
   const [startAnimation, setStartAnimation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const {formatDataOne, formatDataTwo, formatDataThree}: any = useData();
+  const {bledata, bleModule, setBleState}: any = useData();
   const [result, setResult] = useState('');
   Tts.setDefaultLanguage('zh-CN');
-  const {bleModule, setBleState}: any = useData();
   const isFocused = useIsFocused();
   useEffect(() => {
     bleModule.isPeripheralConnected().then((isConnected: any) => {
@@ -44,9 +39,7 @@ const QuickStart: React.FC<any> = ({navigation}) => {
         navigation.dispatch(
           CommonActions.reset({
             index: 0,
-            routes: [
-              {name: 'Home'}, // 假设 'Home' 是你的初始页面
-            ],
+            routes: [{name: 'HomeSreen'}],
           }),
         );
         Alert.alert('蓝牙已断开');
@@ -68,18 +61,18 @@ const QuickStart: React.FC<any> = ({navigation}) => {
   }, [result]);
   const sendData = () => {
     setIsLoading(true);
-    if (formatDataOne.length < 3) {
+    if (bledata.current.one.length < 16) {
       Alert.alert('录制时间过短');
       setIsLoading(false);
       setResult('');
       return;
     }
     const tempDt = [
-      formatDataOne,
-      formatDataTwo,
-      formatDataThree,
-      Array.from({length: formatDataOne.length}, () => '0'),
-      Array.from({length: formatDataOne.length}, () => '0'),
+      bledata.current.one,
+      bledata.current.two,
+      bledata.current.three,
+      Array.from({length: bledata.current.one.length}, () => '0'),
+      Array.from({length: bledata.current.one.length}, () => '0'),
     ];
     const matrix = transposeMatrix(tempDt);
     // 接口
@@ -88,7 +81,6 @@ const QuickStart: React.FC<any> = ({navigation}) => {
         matrix: matrix,
       })
       .then(res => {
-        console.log(res.data);
         setResult(res.data.result);
         setIsLoading(false);
       })
@@ -101,6 +93,14 @@ const QuickStart: React.FC<any> = ({navigation}) => {
   };
   const handlePress = () => {
     setResult('');
+    bledata.current = {
+      one: [],
+      two: [],
+      three: [],
+      four: [],
+      five: [],
+      six: [],
+    };
     setRecording(true);
   };
   const handlePressOver = () => {

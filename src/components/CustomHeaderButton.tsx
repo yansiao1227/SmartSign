@@ -11,7 +11,7 @@ const CustomHeaderButton = () => {
 
   return (
     <TouchableOpacity onPress={handlePress}>
-      <Text style={{marginRight: 10}}>蓝牙连接</Text>
+      <Text style={{marginRight: 10, color: 'black'}}>蓝牙连接</Text>
     </TouchableOpacity>
   );
 };

@@ -31,12 +31,12 @@ const Header: React.FC<HeaderProps> = ({
           {scaning ? '正在搜索中' : isConnected ? '断开蓝牙连接' : '搜索蓝牙'}
         </Text>
       </TouchableOpacity>
-      {/* {isMonitoring && (
+      {isMonitoring && (
         <TouchableOpacity style={[styles.buttonViewGreen]} onPress={goNextPage}>
           <Text style={[styles.buttonText]}>去做手势</Text>
         </TouchableOpacity>
-      )} */}
-      <Text style={{marginLeft: 10, marginTop: 10}}>
+      )}
+      <Text style={{marginLeft: 10, marginTop: 10, color: 'black'}}>
         {isConnected ? '当前连接的设备' : '可用设备: ' + deviceLen}
       </Text>
     </View>

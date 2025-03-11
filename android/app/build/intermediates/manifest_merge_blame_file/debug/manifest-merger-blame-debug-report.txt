@@ -95,8 +95,8 @@
 57        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
 57-->[androidx.core:core:1.7.0] C:\Users\26832\.gradle\caches\transforms-3\bf97ff9c137782af27b6e5942aaf7336\transformed\core-1.7.0\AndroidManifest.xml:24:18-86
 58        android:debuggable="true"
-59        android:icon="@mipmap/ic_launcher"
-59-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:40:7-41
+59        android:icon="@mipmap/ic_launcher_round"
+59-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:40:7-47
 60        android:label="@string/app_name"
 60-->D:\DHU\SmartSign\android\app\src\main\AndroidManifest.xml:39:7-39
 61        android:roundIcon="@mipmap/ic_launcher_round"

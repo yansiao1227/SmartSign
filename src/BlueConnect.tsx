@@ -20,11 +20,11 @@ import {BleEventType, BleState} from './utils/type';
 import {useData} from './model/DataContext';
 import {useIsFocused} from '@react-navigation/native';
 
-const Home: React.FC = ({navigation}: any) => {
+const BlueConnect: React.FC = ({navigation}: any) => {
   // 蓝牙是否连接
   const [isConnected, setIsConnected] = useState(false);
   // 正在扫描中
-  const [scaning, setScaning] = useState(false);
+  const [scaning, setScaning] = useState(true);
   // 蓝牙是否正在监听
   const [isMonitoring, setIsMonitoring] = useState(false);
   // 当前正在连接的蓝牙id
@@ -46,14 +46,7 @@ const Home: React.FC = ({navigation}: any) => {
 
   /** 使用Map类型保存搜索到的蓝牙设备，确保列表不显示重复的设备 */
   const deviceMap = useRef(new Map<string, Peripheral>());
-  const {
-    setFormatDataOne,
-    setFormatDataTwo,
-    setFormatDataThree,
-    setBleState,
-    bleModule,
-    bleProtocol,
-  }: any = useData();
+  const {bledata, setBleState, bleModule, bleProtocol}: any = useData();
   const isFocused = useIsFocused();
   useEffect(() => {
     bleModule.isPeripheralConnected().then((isConnected: any) => {
@@ -96,12 +89,12 @@ const Home: React.FC = ({navigation}: any) => {
     );
 
     return () => {
-      updateStateListener.remove();
+      // updateStateListener.remove();
       stopScanListener.remove();
       discoverPeripheralListener.remove();
-      connectPeripheralListener.remove();
-      disconnectPeripheralListener.remove();
-      updateValueListener.remove();
+      // connectPeripheralListener.remove();
+      // disconnectPeripheralListener.remove();
+      // updateValueListener.remove();
     };
   }, []);
 
@@ -176,9 +169,22 @@ const Home: React.FC = ({navigation}: any) => {
     // 步骤 2: 移除回车符（CR）和拆分字符串
     const dataString = decodedString.trim().replace(/\r/g, ''); // 去掉回车符
     const parts = dataString.split('|'); // 按管道符 '|' 拆分
-    setFormatDataOne((prevData: any) => [...prevData, parts[0]]);
-    setFormatDataTwo((prevData: any) => [...prevData, parts[1]]);
-    setFormatDataThree((prevData: any) => [...prevData, parts[2]]);
+    if (parts.length === 3) {
+      bledata.current = {
+        one: [...bledata.current.one, parts[0]],
+        two: [...bledata.current.two, parts[1]],
+        three: [...bledata.current.three, parts[2]],
+      };
+    } else if (parts.length === 6) {
+      bledata.current = {
+        one: [...bledata.current.one, parts[0]],
+        two: [...bledata.current.two, parts[1]],
+        three: [...bledata.current.three, parts[2]],
+        four: [...bledata.current.four, parts[3]],
+        five: [...bledata.current.five, parts[4]],
+        six: [...bledata.current.six, parts[5]],
+      };
+    }
 
     // bleReceiveData.current.push(parts);
     // setReceiveData(bleReceiveData.current.join('\n'));
@@ -291,7 +297,7 @@ const Home: React.FC = ({navigation}: any) => {
             {connectingId === data.id ? '连接中...' : ''}
           </Text>
         </View>
-        <Text>{data.id}</Text>
+        <Text style={{color: 'black'}}>{data.id}</Text>
       </TouchableOpacity>
     );
   }
@@ -363,4 +369,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default BlueConnect;

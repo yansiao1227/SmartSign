@@ -5,7 +5,7 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {useData} from './model/DataContext';
 import {useIsFocused} from '@react-navigation/native';
 
-const Home: React.FC<any> = ({navigation}) => {
+const HomeScreen: React.FC<any> = ({navigation}) => {
   const {bleModule, setBleState}: any = useData();
   const isFocused = useIsFocused();
   useEffect(() => {
@@ -113,6 +113,7 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 28,
     marginTop: -8,
+    color: 'black',
   },
   imageContainer: {
     display: 'flex',
@@ -122,4 +123,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Home;
+export default HomeScreen;

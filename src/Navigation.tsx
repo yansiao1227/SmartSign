@@ -13,9 +13,9 @@ export default function Navigation() {
   const {bleState}: any = useData();
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="HomeScreen">
         <Stack.Screen
-          name="Home"
+          name="HomeScreen"
           component={HomeScreen}
           options={{
             title: bleState ? '主页(已连接)' : '主页(未连接)',

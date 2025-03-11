@@ -41,7 +41,7 @@ const TypewriterText: React.FC<TypewriterTextProps> = ({
 
   return (
     <View style={styles.container}>
-      <Text style={{fontSize: 32}}>{displayedText}</Text>
+      <Text style={{fontSize: 32, color: 'black'}}>{displayedText}</Text>
       {showCursor ? (
         <View style={styles.cursor} />
       ) : (
