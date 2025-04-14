@@ -19,6 +19,15 @@ import Tts from 'react-native-tts';
 import {useIsFocused, CommonActions} from '@react-navigation/native';
 
 const QuickStart: React.FC<any> = ({navigation}) => {
+  const dictMap: any = {
+    手势5: 'shortcut five',
+    手势1:
+      'I feel a terrible pain in my mouth. Can you stop for a moment？ I want some relief.',
+    手势2:
+      'My mouth is full of saliva. Can you pause for a moment so I can spit?',
+    手势9:
+      'My mouth is full of saliva. Can you pause for a moment so I can spit?',
+  };
   let [recording, setRecording] = useState(false);
   const [startAnimation, setStartAnimation] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,13 +64,13 @@ const QuickStart: React.FC<any> = ({navigation}) => {
   useEffect(() => {
     if (result !== '') {
       setTimeout(() => {
-        Tts.speak(result);
+        Tts.speak(dictMap[result]);
       }, 100);
     }
   }, [result]);
   const sendData = () => {
     setIsLoading(true);
-    if (bledata.current.one.length < 16) {
+    if (bledata.current.one.length < 25) {
       Alert.alert('录制时间过短');
       setIsLoading(false);
       setResult('');
@@ -71,18 +80,20 @@ const QuickStart: React.FC<any> = ({navigation}) => {
       bledata.current.one,
       bledata.current.two,
       bledata.current.three,
-      Array.from({length: bledata.current.one.length}, () => '0'),
-      Array.from({length: bledata.current.one.length}, () => '0'),
+      bledata.current.four,
+      bledata.current.five,
+      bledata.current.six,
     ];
-    const matrix = transposeMatrix(tempDt);
+    const matrix = transposeMatrix(tempDt).slice(0, 25);
     // 接口
     axios
-      .post('http://211.159.224.160:8000/predict/', {
+      .post('http://211.159.224.160:8080/sixChannel/predictLocal/', {
         matrix: matrix,
       })
       .then(res => {
         setResult(res.data.result);
         setIsLoading(false);
+        console.log('axios result data:', res.data.result);
       })
       .catch(err => {
         console.log(err);
@@ -115,15 +126,19 @@ const QuickStart: React.FC<any> = ({navigation}) => {
     <View
       style={{
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'flex-start',
         paddingTop: 50,
         backgroundColor: '#fff',
       }}>
       {result === '' ? (
         recording ? (
           <View>
-            <Text style={{fontSize: 28, paddingTop: 120, color: '#000'}}>
+            <Text
+              style={{
+                fontSize: 28,
+                paddingLeft: 20,
+                paddingTop: 120,
+                color: '#000',
+              }}>
               正在录制中……
             </Text>
           </View>
@@ -138,7 +153,7 @@ const QuickStart: React.FC<any> = ({navigation}) => {
             <ActivityIndicator size="large" color="rgb(33, 150, 243)" />
           </View>
         ) : (
-          <View style={{paddingTop: 0}}>
+          <View style={{paddingLeft: 20}}>
             <Text style={{fontSize: 48, paddingBottom: 50, color: '#000'}}>
               你好,
             </Text>
@@ -149,7 +164,11 @@ const QuickStart: React.FC<any> = ({navigation}) => {
         )
       ) : (
         <View>
-          <View style={{paddingTop: -20}}>
+          <View
+            style={{
+              paddingTop: -20,
+              // backgroundColor: 'red',
+            }}>
             <ImageFade
               // ref="ImageFade"
               duration={200}
@@ -166,17 +185,37 @@ const QuickStart: React.FC<any> = ({navigation}) => {
                 }}
                 source={require('./assets/5.png')}
               />
-              <Image
-                style={{
-                  width: 200,
-                  height: 252,
-                }}
-                source={require('./assets/1.png')}
-              />
+              {result === '手势1' ? (
+                <Image
+                  style={{
+                    width: 200,
+                    height: 252,
+                  }}
+                  source={require('./assets/1.png')}
+                />
+              ) : result === '手势2' ? (
+                <Image
+                  style={{
+                    width: 200,
+                    height: 252,
+                  }}
+                  source={require('./assets/2.png')}
+                />
+              ) : (
+                <Image
+                  style={{
+                    width: 200,
+                    height: 252,
+                  }}
+                  source={require('./assets/5.png')}
+                />
+              )}
             </ImageFade>
           </View>
           <View style={styles.textContainer}>
-            <TypewriterText text={result} />
+            <TypewriterText
+              text={dictMap[result] ? dictMap[result] : 'undefined'}
+            />
           </View>
         </View>
       )}
@@ -209,7 +248,6 @@ const styles = StyleSheet.create({
     // color: '#000',
     // position: 'absolute',
     // bottom: 50,
-    // width: '100%',
     // height: 300,
     // flex: 1,
     alignItems: 'center',

@@ -52,7 +52,7 @@ const HomeScreen: React.FC<any> = ({navigation}) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={() => navigation.navigate('Conversion')}
+        onPress={() => navigation.navigate('Test')}
         style={styles.container}>
         <Text
           style={[

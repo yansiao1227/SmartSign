@@ -3,6 +3,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
 import BlueConnect from './BlueConnect';
 import Sign from './Sign';
+import Test from './Test';
 import HomeScreen from './HomeScreen';
 import QuickStart from './QuickStart';
 import CustomHeaderButton from './components/CustomHeaderButton';
@@ -33,6 +34,7 @@ export default function Navigation() {
           options={{title: '快速开始'}}
         />
         <Stack.Screen name="Sign" component={Sign} />
+        <Stack.Screen name="Test" component={Test} />
       </Stack.Navigator>
     </NavigationContainer>
   );
